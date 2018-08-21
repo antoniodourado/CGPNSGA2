@@ -13,5 +13,7 @@ function [out] = cgpTestImage(img,pop,ind)
     out=funcobj1rec(params.gtsize,gt,params);
     params.inputs.input=inpbackup;
     imshow(out);
+	
+	
 end
 
