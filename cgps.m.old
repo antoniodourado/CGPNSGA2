@@ -1,0 +1,19 @@
+params=init_params();
+%gt=createCGPArray(params);
+%drawCGPChromo(gt,params);
+params.inputs.input=imbinarize(rgb2gray(imread(params.inputs.inputpath)));
+params.inputs.expout=imbinarize(rgb2gray(imread(params.inputs.expoutpath)));
+pop=init_cgppop(params);
+gen=1;
+demoresults=[1 10 2; 2 10 1; 3 6 3; 4 7 4; 5 3 7; 6 2 2; 7 4 8; 8 1 2; 9 2 4; 10 2 3; 11 1 10; 12 1 9];
+%params.npop=12; results=demoresults;
+results=calculateObjFuns(pop,params);
+while(gen <= params.ngen)
+    disp(strcat('Generation',32,int2str(gen)));
+    fronts=cgpfronts(results,params);
+    cdist=cgpcrowding_distance(fronts,params);
+    if(gen < params.ngen)
+        [pop,results]=cgprepop(pop,results,params);
+    end
+    gen=gen+1;
+end
